@@ -10,7 +10,6 @@ public class GeradorJogo {
     public void criar(List<Jogo> jogosSorteados){
         uniaoNumeroJogos(jogosSorteados);
         setNumerosOcorrencia();
-        System.out.println(numerosOcorrencia.toString());
     }
 
     private void uniaoNumeroJogos(List<Jogo> jogosSorteados){
@@ -20,7 +19,6 @@ public class GeradorJogo {
             }
         }
         Collections.sort(todosNumeros);
-        System.out.println(todosNumeros.size());
     }
 
     private void setNumerosOcorrencia(){
@@ -32,5 +30,24 @@ public class GeradorJogo {
                 numerosOcorrencia.put(atual, countOcorrencia);
             }
         }
+        numerosOcorrencia = ordenaMapPorValor(numerosOcorrencia);
+
+        System.out.println(numerosOcorrencia.toString());
+    }
+
+    private Map<Integer, Integer> ordenaMapPorValor(Map<Integer, Integer> hm) {
+        // Create a list from elements of HashMap
+        List<Map.Entry<Integer, Integer>> list = new LinkedList<>(hm.entrySet());
+
+        // Sort the list
+        list.sort(Map.Entry.comparingByValue());
+        Collections.reverse(list);
+
+        // put data from sorted list to hashmap
+        HashMap<Integer, Integer> temp = new LinkedHashMap<>();
+        for (Map.Entry<Integer, Integer> aa : list) {
+            temp.put(aa.getKey(), aa.getValue());
+        }
+        return temp;
     }
 }
