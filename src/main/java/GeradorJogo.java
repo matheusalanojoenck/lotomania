@@ -5,7 +5,9 @@ import java.util.*;
  */
 public class GeradorJogo {
     private List<Integer> todosNumeros = new ArrayList<>();
-    private Map<Integer, Integer> numerosOcorrencia= new HashMap<>();
+
+    //Chave = Numero do jogo | Valor = ocorrencia desse numero
+    private Map<Integer, Integer> numerosOcorrencia = new HashMap<>();
 
     public void criar(List<Jogo> jogosSorteados){
         uniaoNumeroJogos(jogosSorteados);
@@ -35,19 +37,20 @@ public class GeradorJogo {
         System.out.println(numerosOcorrencia.toString());
     }
 
-    private Map<Integer, Integer> ordenaMapPorValor(Map<Integer, Integer> hm) {
-        // Create a list from elements of HashMap
-        List<Map.Entry<Integer, Integer>> list = new LinkedList<>(hm.entrySet());
+    private Map<Integer, Integer> ordenaMapPorValor(Map<Integer, Integer> numerosOcorencia) {
+        //Lista de elementos do HashMap
+        List<Map.Entry<Integer, Integer>> listaNumerosOcorrencia = new LinkedList<>(numerosOcorencia.entrySet());
 
-        // Sort the list
-        list.sort(Map.Entry.comparingByValue());
-        Collections.reverse(list);
+        //Ordena Lista de forma crescente
+        listaNumerosOcorrencia.sort(Map.Entry.comparingByValue());
+        //Inverte lista ordenada para forma decrescente
+        Collections.reverse(listaNumerosOcorrencia);
 
-        // put data from sorted list to hashmap
-        HashMap<Integer, Integer> temp = new LinkedHashMap<>();
-        for (Map.Entry<Integer, Integer> aa : list) {
-            temp.put(aa.getKey(), aa.getValue());
+        //Coloca a lsita ordenada no HasMap
+        Map<Integer, Integer> mapOcorrenciaOrdenado = new LinkedHashMap<>();
+        for (Map.Entry<Integer, Integer> numero : listaNumerosOcorrencia) {
+            mapOcorrenciaOrdenado.put(numero.getKey(), numero.getValue());
         }
-        return temp;
+        return mapOcorrenciaOrdenado;
     }
 }
